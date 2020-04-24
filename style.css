@@ -1,3 +1,7 @@
+html {
+    scroll-behavior: smooth;
+}
+
 body {
     background-color: #e8e8e8;
 }
@@ -35,4 +39,8 @@ p {
 .container-fluid {
     padding-left: 15%;
     min-height: 100vh;
+}
+
+a {
+    font-size: 18px;
 }
