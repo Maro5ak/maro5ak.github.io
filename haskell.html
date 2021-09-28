@@ -26,7 +26,9 @@
         <li><a class="js-scroll-trigger" href="#3_3">3.3 Specialni Operatory</a></li>
         <li><a class="js-scroll-trigger" href="#4">4. Funkce</a></li>
         <li><a class="js-scroll-trigger" href="#4_1">4.1 Syntaxe definovani funkci</a></li>
-        <li><a class="js-scroll-trigger" href="#4_1_1">4.1.1 Pattern Matching</a></li>
+        <li><a class="js-scroll-trigger" href="#4_1_1">4.1.1 Guard Expressions</a></li>
+        <li><a class="js-scroll-trigger" href="#4_1_2">4.1.2 Pattern Matching</a></li>
+        <li><a class="js-scroll-trigger" href="#4_1_3">4.1.3 Lokalni Definice Funkce</a></li>
 
     </ul>
     <h1>Basic info</h1>
@@ -197,12 +199,12 @@
         </code>
     </pre>
     <p>Note: Parametru muze byt i vice</p>
-    <h2 id="4_1">3.1 Syntaxe definovani funkci</h2>
+    <h2 id="4_1">4.1 Syntaxe definovani funkci</h2>
     <p>
         Pouzita syntaxe se u funkci odviji podle pouziti funkce.
         Napr. pri rozhodovani (v normalnich jazycich if-else clauses) se vyuziva <i>guard expressions</i>, pri rekurzi <i>pattern matching</i> atd.
     </p>
-    <h3 id="4_1_1">3.1.1 Guard Expressions</h3>
+    <h3 id="4_1_1">4.1.1 Guard Expressions</h3>
     <p>
         Guard Expressions funguji na podobnem principu jako v imperativnich jazycich <i>if-else clauses</i>. 
         Vyuzivaji se pokud je v programu potreba udelat nejaka rozhodnuti, tj. <i>vetveni</i>
@@ -212,7 +214,7 @@
     <pre>
         <code class="haskell">
     max :: Int -> Int
-    max x y | x >= y == x
+    max x y | x >= y = x
             | otherwise = y
         </code>
     </pre>
@@ -220,8 +222,83 @@
     <p>
         Nazev funkce je max a pracuje s <i>celymi cisly</i>, tj. definovano v prvnim radku.
         Pro inputy <i>x</i> a <i>y</i> rozhoduje, ktere z techto dvou cisel je vetsi.
-        
     </p>
+    <h3 id="4_1_2">4.1.2 Pattern Matching</h3>
+    <p>Pattern Matching se vyuziva pro nastaveni specifikace/vzoru/patternu, pro vyhodnocovani funkci.</p>
+    <p>V praxi to pak znamena, ze se nastavi serie vstupu na specificke vystupy a Haskell je pak vyhodnocuje postupne a pouzije ten radek, ktery se nejvice hodi.</p>
+    <p>Nemam tuseni, jak to vysvetlit jinak, nez prikladem:</p>
+    <pre>
+        <code class="haskell">
+    number :: Int -> String
+    number 1 = Jedna
+    number 2 = Dva
+    number 3 = Tri
+    number x = Neznam
+        </code>
+    </pre>
+    <p>Stejna funkce, pro ruzne vstupy ruzne vystupy</p>
+    <p>Vice praktickym prikladem by pak byl treba <i>Rekurzivni vypocet faktorialu</i>, kdy se rekurze ukonci diky nastavenemu patternu</p>
+    <pre>
+        <code class="haskell">
+    factorial :: Int -> Int
+    factorial 0 = 1
+    factorial 1 = 1
+    factorial n = n * factorial (n-1)
+        </code>
+    </pre>
+    <p>Vystup: </p>
+    <pre>
+        <code class="haskell">
+    Prelude> factorial 5
+    120
+        </code>
+    </pre>
+    <p>No a, co je to vlastne ta rekurze?</p>
+    <p><i>Rekurzivni funkce je takova, ktera vola sama sebe, dokud neni splnena nejaka podminka.</i></p>
+    <p>
+        V pripade vypoctu faktorialu je kazde volani funkce s hodnotou o jedna mensi, nez byla ta predchozi, dokud nenarazi na 1, kdy Haskell vi, diky pattern matchingu,
+        ze faktorial 1 = 1 a uz dale funkci neni potreba volat. 
+    </p>
+    <h3 id="4_1_3">4.1.3 Lokalni Definice Funkce</h3>
+    <p>Obcas se stane, ze je potreba vytvorit nejakou vetsi, pomocnou, funkci pri reseni nejake jine.</p>
+    <p>Pro toto reseni se vyuziva klicoveho slova <i>where</i>, diky kteremu se da vytvorit funkce ve funkci</p>
+    <p>Prakticky priklad muze byt pokud chceme zjistit, je-li cislo prvocislem: </p>
+    <pre>
+        <code class="haskell">
+    isPrime :: Int -> Bool
+    isPrime 1 = False       --opet vyuziti pattern matchingu pro ustanoveni podminky
+    isPrime n = isPrimeHelp n (n-1) where
+            isPrimeHelp n 1 = True
+            isPrimeHelp n i 
+            | mod n i == 0 = False
+            | otherwise = isPrimeHelp n (i-1)
+
+        </code>
+    </pre>
+    <p>Vystup: </p>
+    <pre>
+        <code>
+    Prelude> isPrime 5
+    True
+    Prelude> isPrime 8
+    False
+        </code>
+    </pre>
+    <p>A jak tento kus kodu funguje?</p>
+    <p>Jedna se o kombinaci 3 ruznych zpusobu, jak definovat funkce v Haskellu.</p>
+    <ul>
+        <li>1. nastaveni konecne podminky pomoci <i>Pattern Matchingu</i>. Tomuto odpovida radek <code>isPrime 1 = False</code> a radek <code>isPrimeHelp n 1 = True</code></li>
+        <li>2. vyuziti <i>where</i> pro definice funkce ve funkci. Tedy funkce <code>isPrimeHelp</code> je definovana pouze pro vyuziti ve funkci <code>isPrime</code></li>
+        <li>3. vyuziti <i>rekurze</i> k zjisteni, jestli je cislo prvocislem</li>
+    </ul>
+    <p>Note: Pouzitim funkce mod, ktera vraci <i>zbytek po celociselnem deleni</i> se da zjistit, jestli ma cislo vice nez jednoho delitele.</p>
+    <p>
+        Cislo je prvocislem pouze pokud je delitelne 1 a samo sebou.
+        Algoritmus pak tedy funguje tak, ze predpoklada, ze kazde cislo je prvocislem a postupne zkousi celociselnym delenim (funkce mod), jestli ma cislo pouze jednoho delitele, a to 1 az na konci.
+        Pomoci rekurze se pak zkousi delitelnost cisla <i>n</i> postupne od <i>n-1</i> az po <i>1</i>.
+    </p>
+    <p>Pokud najde v prubehu jineho delitele, tak cislo neni prvocislem.</p>
+
 
 
 <!--KAPITOLA 4 END-->
