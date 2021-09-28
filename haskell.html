@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Marek Ptašek / Haskell</title>
+    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="highlights/styles/atom-one-dark.css">
+    <script src="highlights/highlight.pack.js"></script>
+    <script>hljs.highlightAll();</script>
+</head>
+<body>
+    <h1>INFO</h1>
+    <p>By 1T0S_</p>
+    <p>Design stolen from 1T0S_</p>
+    <p>Úprava textu:</p>
+    <ul>
+        <li>Normální text</li>
+        <li class="code">Kód</li>
+        <li><i>Zvýraznění</i></li>
+    </ul>
+    <h1>Basic info</h1>
+    <p> 
+        Haskell je plne funkcionalni jazyk
+        Velky rozdil postupu pri programovani oproti imperativnim jazykum, jako napr. C, Java, ...
+    </p>
+    <h1>1. Spusteni interpretu</h1>
+    <p>
+        Soubory spustitelne Haskellem: <i>nazev.hs</i>
+        Po instalaci, v terminalu <i>GHCI</i>. GHCI = GHC Interpret
+        Dale se daji psat napr. matematicke operace primo do interpretu. 
+    </p>
+    <p>Priklad zadavani primo do interpretu:</p>
+    </p>
+    <pre>
+        <code>
+    >ghci
+    GHCi, version 8.6.5: http://www.haskell.org/ghc/ :? for help
+    Prelude>2*(3+5)
+    16
+        </code>
+    </pre>
+    <p>
+        Dale se da pomoci <i>:l nazev.hs</i> nacist soubor a daji se vyuzivat funkce v nem vytvorene.
+    </p>    
+    <p>Priklad funkce v nejakem souboru:</p>
+        <pre>
+            <code class="haskell">
+    doubleMe :: Int -> Int
+    doubleMe x = x * x
+            </code>
+        </pre>
+    <p>Pouziti funkce ze souboru:</p>
+    <pre>   
+        <code>
+    Prelude>:l soubor.hs
+    [1 of 1] Compiling Main             ( soubor.hs, interpreted )
+    Ok, one module loaded.
+    *Main> doubleMe 4
+    16
+        </code>
+    </pre>
+    <p>
+        Funkce <i>doubleMe</i> pro input cisla <i>x</i>udela dvojnasobek cisla
+        Pro pouziti funkce staci po nacteni souboru napsat nazev funkce a nejake cislo, tedy <i>doubleMe 2</i>
+    </p>
