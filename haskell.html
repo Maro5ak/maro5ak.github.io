@@ -3,30 +3,44 @@
 <head>
     <meta charset="UTF-8">
     <title>Marek Ptašek / Haskell</title>
-    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="styles/styles.css">
     <link rel="stylesheet" href="highlights/styles/atom-one-dark.css">
     <script src="highlights/highlight.pack.js"></script>
+   
     <script>hljs.highlightAll();</script>
 </head>
 <body>
     <h1>INFO</h1>
-    <p>By 1T0S_</p>
-    <p>Design stolen from 1T0S_</p>
-    <p>Úprava textu:</p>
+    <p>By Marosak</p>
+    <p>Design stolen from <a href="https://github.com/1T0S">1T0S_</a></p>
+    
+    <h3>Index:</h3>
     <ul>
-        <li>Normální text</li>
-        <li class="code">Kód</li>
-        <li><i>Zvýraznění</i></li>
+        <li><a class="js-scroll-trigger" href="#1">1. Spousteni Programu</a></li>
+        <li><a class="js-scroll-trigger" href="#1_1">1.1 Priklad Interpretace</a></li>
+        <li><a class="js-scroll-trigger" href="#1_2">1.2 Priklad Kompilace</a></li>
+        <li><a class="js-scroll-trigger" href="#2">2. Datove Typy</a></li>
+        <li><a class="js-scroll-trigger" href="#3">3. Operatory</a></li>
+        <li><a class="js-scroll-trigger" href="#3_1">3.1 Logicke a Porovnavaci Operatory</a></li>
+        <li><a class="js-scroll-trigger" href="#3_2">3.2 Aritmeticke Operatory</a></li>
+        <li><a class="js-scroll-trigger" href="#3_3">3.3 Specialni Operatory</a></li>
+        <li><a class="js-scroll-trigger" href="#4">4. Funkce</a></li>
+        <li><a class="js-scroll-trigger" href="#4_1">4.1 Syntaxe definovani funkci</a></li>
+        <li><a class="js-scroll-trigger" href="#4_1_1">4.1.1 Pattern Matching</a></li>
+
     </ul>
     <h1>Basic info</h1>
-    <p> 
-        Haskell je plne funkcionalni jazyk
-        Velky rozdil postupu pri programovani oproti imperativnim jazykum, jako napr. C, Java, ...
-    </p>
-    <h1>1. Spusteni interpretu</h1>
+    <p>Haskell je zcela funkcionalni jazyk</p>
+    <p>Velky rozdil postupu pri programovani oproti imperativnim jazykum, jako napr. C, Java, ...</p>
+<!--KAPITOLA 1 START-->
+    <h1 id="1">1. Spousteni Programu</h1>
+    <p>Programy v Haskellu se daji spoustet 2 zpusoby</p>
+    <p>1. Interpretace = pomoci interpretu GHCi</p>
+    <p>2. Kompilace = pomoci kompilatoru GHC se tvori spustitelne soubory</p>
+    <h2 id="1_1">Priklad Interpretace</h2>
     <p>
         Soubory spustitelne Haskellem: <i>nazev.hs</i>
-        Po instalaci, v terminalu <i>GHCI</i>. GHCI = GHC Interpret
+        Po instalaci kompileru a interpretu, v terminalu prikazem <i>ghci</i>. GHCI = GHC Interpret
         Dale se daji psat napr. matematicke operace primo do interpretu. 
     </p>
     <p>Priklad zadavani primo do interpretu:</p>
@@ -60,6 +74,157 @@
         </code>
     </pre>
     <p>
-        Funkce <i>doubleMe</i> pro input cisla <i>x</i>udela dvojnasobek cisla
+        Funkce <i>doubleMe</i> pro input cisla <i>x</i> udela dvojnasobek cisla
         Pro pouziti funkce staci po nacteni souboru napsat nazev funkce a nejake cislo, tedy <i>doubleMe 2</i>
     </p>
+    <h3>Nejake prikazy pro pouzivani GHCi</h3>
+    <p><i>:l</i> = zkraceny tvar <i>:load</i>; nacte program pro interpretaci</p>
+    <p><i>:r</i> = zkraceny tvar <i>:reload</i>; znovu nacte jiz nacteny program se vsemi provedenymi zmenami v kodu</p>
+    <p><i>:q</i> = zkraceny tvar <i>:quit</i>; zavre interpret GHCi</p>
+    <p>Note: soubory se da nacitat take primo pri spusteni GHCi. A to prikazem:</p>
+    <p><i>GHCi soubor.hs</i></p>
+    <h2 id="1_2">Priklad Kompilace</h2>
+    <p>
+        Haskell se nemusi jen interpretovat, muze se take kompilovat a tvorit spustitelne soubory (na Windows soubor.exe, Linux soubor)
+        Tyto soubory se pak daji spustit kdekoliv v pocitaci a nejen v terminalu pomoci GHCi
+    </p>
+    <p>Note: tyto zdrojove soubory pak ale musi jiz mit definovanou funkci <i>main</i>, aby byly spustitelne</p>
+    <p>Priklad souboru:</p>
+    <pre>
+        <code class="haskell">
+    main = do putStr "Hello World!"
+        </code>
+    </pre>
+    <p>Priklad kompilace: </p>
+    <pre>
+        <code>
+    >ghc soubor.hs
+    [1 of 1] Compiling Main             ( soubor.hs, soubor.o )
+    Linking soubor ...
+        </code>
+    </pre>
+    <p>
+        Tento soubor se pak da spustit kdekoliv v pocitaci a po spusteni probehne funkce putStr, ktera vypise nejaky retezec do konzole. V tomto pripade "Hello World!"
+    </p>
+<!--KAPITOLA 1 END-->
+<!--KAPITOLA 2 START-->
+    <h1 id="2">2. Datove Typy</h1>
+    <p>
+        Haskell obsahuje, jako vlastne mnoho dalsich jazyku, datove typy. 
+        Haskell je <i>silne staticky typovany</i>, tzn. ze se typy musi zadavat manualne. Nektere jazyky jsou <i>dynamicky typovane</i>, napr. Python nebo PHP
+    </p>
+    <p>Mezi zakladni datove typy patri:</p>
+    <ul>
+        <li>Int - Integer = <i>cele cislo</i></li>
+        <li>Char - Character = jakykoliv <i>jeden</i> znak</li>
+        <li>Bool - Boolean = pravdivostni hodnoty <i>True</i> nebo <i>False</i></li>
+        <li>Double, Float = <i>realne</i> cislo</li>
+        <li>String = retezec, ve skutecnosti se jedna o <i>List Charu</i></li>
+    </ul>
+    <p>Kazda promenna v Haskellu <i>musi</i> mit definovany datovy typ. Nektere funkce mohou pracovat pouze s cisly, jine napr. pouze s listy apod.</p>
+<!--KAPITOLA 2 END-->
+<!--KAPITOLA 3 START-->
+    <h1 id="3">3. Operatory</h1>
+    <p>V Haskellu existuje plno operatoru. Kazdy reprezentuje budto specialni znak nebo funkce</p>
+    <p>Dulezite pro operatory jsou <i>priorita</i> a <i>asociativita</i></p>
+    <p>Priorita operatoru vychazi z matematiky. Plati pro ne tedy pravidla podobne jako v matematice: <i>zavorky -> nasobeni/deleni -> scitani/odcitani</i></p>
+    <p>Operatory mohou byt vyuzity jako funkce. Napr. (+) 5 2 </p>
+    <p>Funkce mohou byt vyuzity jako operatory. Napr. 5 `mod` 6</p>
+    <h2 id="3_1">3.1 Logicke a Porovnavaci Operatory</h2>
+    <p>Dal jsem tyto 2 skupiny do jedne, protoze se vyuzivaji v podminkach.</p>
+    <ul>
+        <li><code>&&</code> = Logicke AND - logicky soucin</li>
+        <li><code>||</code> = Logicke OR - logicky soucet</li>
+        <li><code>></code> = vetsi nez</li>
+        <li><code><</code> = mensi nez</li>
+        <li><code>>=</code> = vetsi nebo rovno nez</li>
+        <li><code><=</code> = mensi nebo rovno nez</li>
+        <li><code>/=</code> = nerovna se</li>
+        <li><code>==</code> = rovna se</li>
+    </ul>
+    <h2 id="3_2">3.2 Aritmeticke Operatory</h2>
+    <p>Vyuzivaji se pri praci s cisly. Plati jak pro cela cisla tak realna cisla.</p>
+    <ul>
+        <li><code>+</code> = scitani, normalni zapis: <code>x + y</code>, muze se ale vyuzit jako funkce, pak tedy: <code>(+) x y</code></li>
+        <li><code>-</code> = odcitani, normalni zapis: <code>x - y</code>, muze se ale vyuzit jako funkce, pak tedy: <code>(-) x y</code></li>
+        <li><code>*</code> = nasobeni, normalni zapis: <code>x * y</code>, muze se ale vyuzit jako funkce, pak tedy: <code>(*) x y</code></li>
+        <li><code>/</code> = deleni, normalni zapis: <code>x / y</code>, muze se ale vyuzit jako funkce, pak tedy: <code>(/) x y</code></li>
+        <li><code>`mod`</code> = modulo - celociselne deleni, vysledkem je <i>zbytek po deleni</i>. pouziti: <code>x `mod` y</code>, ve forme funkce: <code>mod x y</code></li>
+    </ul>
+    <h2 id="3_3">3.3 Specialni Operatory</h2>
+    <p>Specialni operatory jsou kategorie, u ktere nevim kam to jinam zaradit, simple as that.</p>
+    <ul>
+        <li><code>:</code> = operator "tvorby" seznamu. Tento operator pridava prvek na zacatek seznamu jakozto head a rozsiri ho o tento prvek.</li>
+        <pre>
+            <code>
+    Prelude> 0 : [1,2,3]
+    [0,1,2,3]
+            </code>
+        </pre>
+        <li><code>!!</code> = operator, ktery vraci index nejakeho prvku v listu. Je ovsem velmi neefektivni, musi se provest N kroku (N = index), aby se dostal na hodnotu N-teho prvku</li>
+        <pre>
+            <code>
+    Prelude> [5,9,6,7] !! 2
+    6
+            </code>
+        </pre>
+        <p>Note: listy se indexuji od 0, tedy 0 je prvni prvek, 1 je druhy atd.</p>
+        <li><code>++</code> = operator propojeni listu. Jednoduse receno, spojuje 2 listy do jednoho.</li>
+        <pre>
+            <code>
+    Prelude> [1,2,3] ++ [4,5,6]
+    [1,2,3,4,5,6]
+            </code>
+        </pre>
+    </ul>
+
+
+<!--KAPITOLA 3 END-->
+<!--KAPITOLA 4 START-->
+    <h1 id="4">3. Funkce</h1>
+    <p>
+        Jelikoz je Haskell funkcionalne programovaci jazyk, jeho nejvetsi vyuziti bude, necekane, u funkci. 
+        V Haskellu se nachazi plno jiz preddefinovanych funkci, ktere se daji bezne vyuzivat pro potreby programu, ale muzeme si tvorit take svoje vlastni.
+    </p>
+    <p>Priklad definovani jednoduche funkce:</p>
+    <pre>
+        <code class="haskell">
+    nazev :: Typ
+    nazev parametry = provedeni
+
+    square :: Int -> Int    -- nepovinna cast
+    square x = x * x
+        </code>
+    </pre>
+    <p>Note: Parametru muze byt i vice</p>
+    <h2 id="4_1">3.1 Syntaxe definovani funkci</h2>
+    <p>
+        Pouzita syntaxe se u funkci odviji podle pouziti funkce.
+        Napr. pri rozhodovani (v normalnich jazycich if-else clauses) se vyuziva <i>guard expressions</i>, pri rekurzi <i>pattern matching</i> atd.
+    </p>
+    <h3 id="4_1_1">3.1.1 Guard Expressions</h3>
+    <p>
+        Guard Expressions funguji na podobnem principu jako v imperativnich jazycich <i>if-else clauses</i>. 
+        Vyuzivaji se pokud je v programu potreba udelat nejaka rozhodnuti, tj. <i>vetveni</i>
+        Jednotlive vetve pak maji ruzne vysledky
+    </p>
+    <p>Priklad vyuziti Guard Expressions:</p>
+    <pre>
+        <code class="haskell">
+    max :: Int -> Int
+    max x y | x >= y == x
+            | otherwise = y
+        </code>
+    </pre>
+    <p>Co tato funkce dela?</p>
+    <p>
+        Nazev funkce je max a pracuje s <i>celymi cisly</i>, tj. definovano v prvnim radku.
+        Pro inputy <i>x</i> a <i>y</i> rozhoduje, ktere z techto dvou cisel je vetsi.
+        
+    </p>
+
+
+<!--KAPITOLA 4 END-->
+
+</body>
+<script src="js/scroll.js"></script>

@@ -1,2 +1,2 @@
-# School project to make a website utilizing Bootstrap design.  
+# Website 
 https://maro5ak.github.io/
