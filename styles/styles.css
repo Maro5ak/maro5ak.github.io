@@ -71,3 +71,6 @@ b{
 a:hover{
     text-decoration: underline;
 }
+.secret{
+    font-size: 10px;
+}

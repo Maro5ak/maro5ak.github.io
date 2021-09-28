@@ -31,6 +31,7 @@
         <li><a class="js-scroll-trigger" href="#4_1_3">4.1.3 Lokalni Definice Funkce</a></li>
 
     </ul>
+    <p class="secret">You can click these btw</p>
     <h1>Basic info</h1>
     <p>Haskell je zcela funkcionalni jazyk</p>
     <p>Velky rozdil postupu pri programovani oproti imperativnim jazykum, jako napr. C, Java, ...</p>
@@ -40,11 +41,12 @@
     <p>1. Interpretace = pomoci interpretu GHCi</p>
     <p>2. Kompilace = pomoci kompilatoru GHC se tvori spustitelne soubory</p>
     <h2 id="1_1">Priklad Interpretace</h2>
+    <p>Soubory spustitelne Haskellem: <i>nazev.hs</i></p>
     <p>
-        Soubory spustitelne Haskellem: <i>nazev.hs</i>
         Po instalaci kompileru a interpretu, v terminalu prikazem <i>ghci</i>. GHCI = GHC Interpret
         Dale se daji psat napr. matematicke operace primo do interpretu. 
     </p>
+    <p>Note: Interpret se spousti <i>v tom adresari v jakem se zrovna uzivatel nachazi kdyz prikaz ghci spusti</i>, takze idealne tam, kde jsou .hs soubory ulozeny, jinak je nebude schopen nacist.</p>
     <p>Priklad zadavani primo do interpretu:</p>
     </p>
     <pre>
@@ -129,7 +131,7 @@
     <h1 id="3">3. Operatory</h1>
     <p>V Haskellu existuje plno operatoru. Kazdy reprezentuje budto specialni znak nebo funkce</p>
     <p>Dulezite pro operatory jsou <i>priorita</i> a <i>asociativita</i></p>
-    <p>Priorita operatoru vychazi z matematiky. Plati pro ne tedy pravidla podobne jako v matematice: <i>zavorky -> nasobeni/deleni -> scitani/odcitani</i></p>
+    <p>Priorita operatoru vychazi z matematiky. Plati pro ne tedy pravidla podobne jako v matematice: <i>Aplikace funkce -> zavorky -> nasobeni/deleni -> scitani/odcitani</i></p>
     <p>Operatory mohou byt vyuzity jako funkce. Napr. (+) 5 2 </p>
     <p>Funkce mohou byt vyuzity jako operatory. Napr. 5 `mod` 6</p>
     <h2 id="3_1">3.1 Logicke a Porovnavaci Operatory</h2>
@@ -259,6 +261,17 @@
         V pripade vypoctu faktorialu je kazde volani funkce s hodnotou o jedna mensi, nez byla ta predchozi, dokud nenarazi na 1, kdy Haskell vi, diky pattern matchingu,
         ze faktorial 1 = 1 a uz dale funkci neni potreba volat. 
     </p>
+    <p>Prubeh funkce pak vypada takto: </p>
+    <pre>
+        <code>
+    factorial 5 = 5 * factorial 4
+                = 5 * 4 * factorial 3
+                = 5 * 4 * 3 * factorial 2
+                = 5 * 4 * 3 * 2 * factorial 1
+                = 5 * 4 * 3 * 2 * 1
+                = 120
+        </code>
+    </pre>
     <h3 id="4_1_3">4.1.3 Lokalni Definice Funkce</h3>
     <p>Obcas se stane, ze je potreba vytvorit nejakou vetsi, pomocnou, funkci pri reseni nejake jine.</p>
     <p>Pro toto reseni se vyuziva klicoveho slova <i>where</i>, diky kteremu se da vytvorit funkce ve funkci</p>
