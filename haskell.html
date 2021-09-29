@@ -339,9 +339,9 @@
     <p>Priklady ruznych listu:</p>
     <pre>
         <code class="haskell">
-    [1, 2, 3, 4]        --Okay, tohle je List integeru
-    [1, 'a', 2, 3]      --Nope, takhle ne
-    "String" == ['S', 't', 'r', 'i', 'n', 'g']   --String je vlastne List jednotlivych charu
+    [1,2,3,4]        --Okay, tohle je List integeru
+    [1,'a',2,3]      --Nope, takhle ne
+    "String" == ['S','t','r','i','n','g']   --String je vlastne List jednotlivych charu
         </code>
     </pre>
     <h2 id="5_1">5.1 Vlastnosti Listu</h2>
@@ -410,14 +410,14 @@
     <p>Pouziti funkce: </p>
     <pre>
         <code>
-    Prelude> sumIt [1, 2, 3]
+    Prelude> sumIt [1,2,3]
     6
         </code>
     </pre>
     <p>Prubeh krok po kroku: </p>
     <pre>
         <code class="haskell">
-    sumIt [1, 2, 3] = 1 + sumIt [2, 3]
+    sumIt [1,2,3] = 1 + sumIt [2,3]
                     = 1 + 2 + sumIt [3]
                     = 1 + 2 + 3 + sumIt []
                     = 1 + 2 + 3 + 0
