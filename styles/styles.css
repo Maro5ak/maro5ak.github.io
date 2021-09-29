@@ -65,8 +65,9 @@ i{
 }
 
 b{
-    color: #dd1a00;
+    font-size: 10px;
 }
+
 
 a:hover{
     text-decoration: underline;

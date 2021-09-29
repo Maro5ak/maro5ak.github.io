@@ -20,6 +20,7 @@
         <li><a class="js-scroll-trigger" href="#1_1">1.1 Priklad Interpretace</a></li>
         <li><a class="js-scroll-trigger" href="#1_2">1.2 Priklad Kompilace</a></li>
         <li><a class="js-scroll-trigger" href="#2">2. Datove Typy</a></li>
+        <!--<li><a class="js-scroll-trigger" href="#2_1">2.1 Typove Tridy</a></li>-->
         <li><a class="js-scroll-trigger" href="#3">3. Operatory</a></li>
         <li><a class="js-scroll-trigger" href="#3_1">3.1 Logicke a Porovnavaci Operatory</a></li>
         <li><a class="js-scroll-trigger" href="#3_2">3.2 Aritmeticke Operatory</a></li>
@@ -29,6 +30,9 @@
         <li><a class="js-scroll-trigger" href="#4_1_1">4.1.1 Guard Expressions</a></li>
         <li><a class="js-scroll-trigger" href="#4_1_2">4.1.2 Pattern Matching</a></li>
         <li><a class="js-scroll-trigger" href="#4_1_3">4.1.3 Lokalni Definice Funkce</a></li>
+        <li><a class="js-scroll-trigger" href="#5">5. Listy</a></li>
+        <li><a class="js-scroll-trigger" href="#5.1">5.1 Vlastnosti Listu</a></li>
+        <li><a class="js-scroll-trigger" href="#5.2">5.2 Operace s Listy</a></li>
 
     </ul>
     <p class="secret">You can click these btw</p>
@@ -126,6 +130,14 @@
         <li>String = retezec, ve skutecnosti se jedna o <i>List Charu</i></li>
     </ul>
     <p>Kazda promenna v Haskellu <i>musi</i> mit definovany datovy typ. Nektere funkce mohou pracovat pouze s cisly, jine napr. pouze s listy apod.</p>
+    <!--
+    <h2 id="2_1">2.1 Typove Tridy</h2>
+    <p>Jedna se o uplne jiny koncept, nez jake jsou tridy napr. v OOP jazycich jako je Java, C# apod.</p>
+    <p>Typ se muze stat clenem nektere ze trid pokud <i>poskytuje funkce a operatory, ktere tato trida definuje</i></p>
+    <p>Napr. typova trida <code>Eq</code></p>
+    <p>Eq je typova trida pro porovnavani.</p>
+    <p>Vice detailu later. WIP</p>
+    -->
 <!--KAPITOLA 2 END-->
 <!--KAPITOLA 3 START-->
     <h1 id="3">3. Operatory</h1>
@@ -315,6 +327,104 @@
 
 
 <!--KAPITOLA 4 END-->
+<!--KAPITOLA 5 START-->
+    <h1 id="5">5. Listy</h1>
+    <p>Listy jsou nejvyuzivanejsi datovou strukturou ve funkcionalnich jazycich.</p>
+    <p>Jedna se o <i>kolekci dat</i>, to znamena, ze pokud chce clovek vyhodnocovat vice hodnot, tak je nahazi do listu a treba vytvori funkci, ktera jej pak projede a udela s nim cokoliv je potreba.</p>
+    <p>Obdobou Listu v normalnich programovacich jazycich pak jsou Arraye (pole), nejedna se vsak o stejnou vec. Princip fungovani je jiny.</p>
+    <p>
+        Listy jsou <i>Homogenni datovou strukturou</i>. A co to sakra znamena? Znamena to, ze muzou obsahovat <i>pouze jeden datovy typ</i>, takze List Intu, List Charu (coz je vlastne String), 
+        ale <i>nikdy nesmi obsahovat dva ruzne datove typy.</i>
+    </p>
+    <p>Priklady ruznych listu:</p>
+    <pre>
+        <code class="haskell">
+    [1, 2, 3, 4]        --Okay, tohle je List integeru
+    [1, 'a', 2, 3]      --Nope, takhle ne
+    "String" == ['S', 't', 'r', 'i', 'n', 'g']   --String je vlastne List jednotlivych charu
+        </code>
+    </pre>
+    <h2 id="5_1">5.1 Vlastnosti Listu</h2>
+    <p>Listy jsou homogenni datovou strukturou.</p>
+    <p>Kazdy element listu obsahuje data a odkaz na nasledujici element v listu.</p>
+    <p>Note: posledni element tedy ukazuje nikam, takze vraci neco jako null referenci</p>
+    <p>List se z pravidla sklada z nekolika casti:</p>
+    <ul>
+        <li>1. head = pouze <i>prvni prvek listu</i></li>
+        <li>2. tail = vsechny prvky <i>krome prvniho prvku</i></li>
+        <li>3. init = vsechny prvky <i>krome posledniho prvku</i></li>
+        <li>4. last = pouze <i>posledni prvek listu</i></li>
+
+    </ul>
+    <p>Definice Listu: </p>
+        <pre>
+            <code class="haskell">
+    data List a = Cons a (List a)
+                | Nil
+
+            </code>
+        </pre>
+    <p>To je ale hovadina, co? Nastesti existuje hezci zpusob tvoreni listu, a to za pouziti <i>hranatych zavorek</i></p>
+    <pre>
+        <code class="haskell">
+            []      --Prazdny List
+            [1,2,3] --List Intu
+            [Int]   --Definice, ze list bude obsahovat Integery
+        </code>
+    </pre>
+    <p>Mnohem lepsi.</p>
+    <h2 id="5_2">5.2 Operace s Listy</h2>
+    <p>Stejne jako se vsim v Haskellu, i s Listy se daji delat operace. A to pomoci funkci a operatoru.</p>
+    <p>Napr. Funkce <i>length</i>, ktera vraci <i>velikost Listu</i>. Tato funkce lze pouzit na jakykoliv List obsahujici jakekoliv data (= pouziti Polymorphismu)</p>
+    <p>Note: operatory Listu jsou popsany v kapitole <a href="#3_3">3.3 Specialni Operatory</a><b> <- psst, you can click that</b></p>
+    <p>Note: Polymorphismus znamena, ze objekt muze mit vice forem. V praxi to pak znamena, ze lze volat stejne funkce na ruzne datove typy treba. Ale to je soucasti OOP, coz (doufam) v Haskellu neni.</p>
+    <p>Priklad pouziti funkce <i>length</i>:</p>
+    <pre>
+        <code>
+    Prelude> length [1,2,3]
+    3
+        </code>
+    </pre>
+    <p>No a jak to vlastne funguje? Jedna se opet o rekurzivni funkci. V tomto pripade je ale interni jiz v Haskellu, takze si ji nemusime tvorit sami.</p>
+    <p>Prubeh krok po kroku: </p>
+    <pre>
+        <code class="haskell">
+    length [1,2,3] = 1 + length [2,3]
+                   = 1 + 1 + length [3]
+                   = 1 + 1 + 1 + length []
+                   = 1 + 1 + 1 + 0 
+                   = 3
+        </code>
+    </pre>
+    <p>No a jak pracovat s Listy, u kterych nezmane velikost a nebo je to vylozene jedno?</p>
+    <p>Pro tyto Listy se vyuziva specialniho patternu <i>(x:xs)</i>, ve kterem x = prvni prvek (head); xs = zbytek (tail)</p>
+    <p>Priklad vyuziti patternu (x:xs)</p>
+    <pre>
+        <code class="haskell">
+    sumIt :: [Int] -> Int
+    sumIt []  = 0
+    sumIt (x:xs) = x + sumIt xs
+        </code>
+    </pre>
+    <p>Jedna se o opet rekurzivni funkci sumIt, ktera ma za ukol secist n prvku v Listu n Integeru. Aby tato funkce fungovala pro jakkoliv velky List, je zapotrebi vyuzit patternu (x:xs)</p>
+    <p>Pouziti funkce: </p>
+    <pre>
+        <code>
+    Prelude> sumIt [1, 2, 3]
+    6
+        </code>
+    </pre>
+    <p>Prubeh krok po kroku: </p>
+    <pre>
+        <code class="haskell">
+    sumIt [1, 2, 3] = 1 + sumIt [2, 3]
+                    = 1 + 2 + sumIt [3]
+                    = 1 + 2 + 3 + sumIt []
+                    = 1 + 2 + 3 + 0
+                    = 6
+        </code>
+    </pre>
+<!--KAPITOLA 5 END-->
 
 </body>
 <script src="js/scroll.js"></script>
